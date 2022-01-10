@@ -1,44 +1,25 @@
-import React from "react";
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
-import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
 import { Theme } from "@mui/material/styles";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import ScienceSharpIcon from "@mui/icons-material/ScienceSharp";
 import WhatshotIcon from "@mui/icons-material/Whatshot";
 import AddIcon from "@mui/icons-material/Add";
-import LocalAtmIcon from "@mui/icons-material/LocalAtm";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import { TList } from "./AppMenu";
 
-export default function SaladList() {
-  // enum List {
-  // }
-  const [active, setActive] = React.useState(0);
-  const [list, setList] = React.useState("")
+interface Props {
+  active: number,
+  setActive: (index: number) => void,
+  setList: (listName: TList)=> void,
+}
 
+export default function SaladList({ active, setActive, setList }: Props) {
   const ListSalad = ["Цезарь", "Греческий", "Морской", "Туземский", "Летний"];
+
   return (
     <>
-      <Box
-        width={"1px"}
-        height={"70vh"}
-        sx={(theme: Theme) => ({
-          borderLeft: `3px solid ${theme.palette.grey[100]}`,
-        })}
-      ></Box>
-      <Stack
-        direction="column"
-        justifyContent="flex-start"
-        alignItems="center"
-        spacing={2}
-        sx={{
-          width: "25vw",
-        }}
-      >
-
-        { }
         <MenuList>
           <Typography
             variant="body2"
@@ -46,7 +27,7 @@ export default function SaladList() {
             sx={{ px: 2, py: 1, textAlign: "center" }}
           >
             Виды салатов
-            <MenuBookIcon fontSize="small" color="disabled" sx={{ mx: 1 }} />
+            <MenuBookIcon fontSize="small" color="disabled" sx={{ mx: 1, mb:-0.5 }} />
           </Typography>
 
           {ListSalad.map((name, index) => (
@@ -107,7 +88,8 @@ export default function SaladList() {
               border: `2px solid ${theme.palette.grey[500]}`,
               borderRadius: theme.shape.borderRadius,
               my: 1,
-            })}
+          })}
+          onClick={()=>setList("molecules")}
           >
             <AddIcon fontSize="small" />
             <Typography variant="body2" color="text.primary">
@@ -121,7 +103,8 @@ export default function SaladList() {
               border: `2px solid ${theme.palette.grey[500]}`,
               borderRadius: theme.shape.borderRadius,
               my: 1,
-            })}
+          })}
+          onClick={()=>setList("molecules")}
           >
             <ScienceSharpIcon fontSize="small" />
             <Typography variant="body2" color="text.primary">
@@ -129,7 +112,7 @@ export default function SaladList() {
             </Typography>
           </MenuItem>
         </MenuList>
-      </Stack>
+
     </>
   );
 }
