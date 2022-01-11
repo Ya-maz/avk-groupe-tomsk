@@ -1,5 +1,4 @@
 import { styled } from "@mui/material/styles";
-import { textAlign } from "@mui/system";
 
 const Nameplate = styled("div", {
   name: "nameplate",
