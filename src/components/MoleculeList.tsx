@@ -12,12 +12,10 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import MenuItemAddToBask from "./MenuItemAddToBask";
 
 interface Props {
-  active: number;
-  setActive: (index: number) => void;
   setList: (listName: TList) => void;
 }
 
-export default function MoluculeList({ active, setActive, setList }: Props) {
+export default function MoluculeList({ setList }: Props) {
   const List = ["Carbon", "Neon", "Xeon", "Iron", "Copper", "Lithium"];
 
   return (
@@ -50,7 +48,7 @@ export default function MoluculeList({ active, setActive, setList }: Props) {
                 color: "inherit",
               },
             })}
-            onClick={() => setActive(index)}
+            onClick={() =>({})}
           >
             <Typography variant="body2">{name}</Typography>
 

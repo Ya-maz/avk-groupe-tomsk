@@ -32,7 +32,7 @@ export default function AppMenu() {
         {list === "salads" ? (
           <SaladList active={active} setActive={setActive} setList={setList} />
         ) : (
-          <MoleculeList active={active} setActive={setActive} setList={setList}/>
+          <MoleculeList setList={setList}/>
         )}
       </Stack>
     </>

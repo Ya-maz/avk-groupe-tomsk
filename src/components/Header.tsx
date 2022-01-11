@@ -7,7 +7,6 @@ import {
   Box,
 } from "@mui/material";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
-import React from "react";
 
 export default function Header() {
   return (

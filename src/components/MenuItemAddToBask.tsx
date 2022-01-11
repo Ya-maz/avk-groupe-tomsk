@@ -2,6 +2,7 @@ import Typography from "@mui/material/Typography";
 import MenuItem from "@mui/material/MenuItem";
 import { Theme } from "@mui/material/styles";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import { Badge } from "@mui/material";
 
 export default function MenuItemAddToBask() {
   return (
@@ -16,10 +17,13 @@ export default function MenuItemAddToBask() {
       })}
       onClick={() => ({})}
     >
-      <AddShoppingCartIcon fontSize="small" />
+      <Badge color={"primary"} badgeContent={0}>
+        <AddShoppingCartIcon fontSize="small" />
+      </Badge>
       <Typography variant="body2" color="text.primary">
         Добавить в корзину
       </Typography>
     </MenuItem>
   );
 }
+ 
