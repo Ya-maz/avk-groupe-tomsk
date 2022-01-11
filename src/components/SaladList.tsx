@@ -1,6 +1,7 @@
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
 import { Theme } from "@mui/material/styles";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import ScienceSharpIcon from "@mui/icons-material/ScienceSharp";
@@ -8,6 +9,7 @@ import WhatshotIcon from "@mui/icons-material/Whatshot";
 import AddIcon from "@mui/icons-material/Add";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import { TList } from "./AppMenu";
+import MenuItemAddToBask from "./MenuItemAddToBask";
 
 interface Props {
   active: number,
@@ -70,6 +72,15 @@ export default function SaladList({ active, setActive, setList }: Props) {
               <Typography variant="body2">
                 {index} <AttachMoneyIcon fontSize="small" sx={{mb:-0.5}} />
               </Typography>
+              <IconButton
+              size="large"
+              edge="start"
+              color="warning"
+              aria-label="menu"
+              sx={{ p: 1 }}
+            >
+               <AddIcon fontSize="small" />
+            </IconButton>
             </MenuItem>
           ))}
 
@@ -84,7 +95,6 @@ export default function SaladList({ active, setActive, setList }: Props) {
 
           <MenuItem
             sx={(theme: Theme) => ({
-              justifyContent: "center",
               border: `2px solid ${theme.palette.grey[500]}`,
               borderRadius: theme.shape.borderRadius,
               my: 1,
@@ -99,7 +109,6 @@ export default function SaladList({ active, setActive, setList }: Props) {
 
           <MenuItem
             sx={(theme: Theme) => ({
-              justifyContent: "center",
               border: `2px solid ${theme.palette.grey[500]}`,
               borderRadius: theme.shape.borderRadius,
               my: 1,
@@ -108,9 +117,11 @@ export default function SaladList({ active, setActive, setList }: Props) {
           >
             <ScienceSharpIcon fontSize="small" />
             <Typography variant="body2" color="text.primary">
-              Изготовить салат из ингридиентов
+              Изготовить свой салат
             </Typography>
-          </MenuItem>
+        </MenuItem>
+        
+        <MenuItemAddToBask />
         </MenuList>
 
     </>
