@@ -10,13 +10,15 @@ import EggIcon from "@mui/icons-material/Egg";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import MenuItemAddToBask from "./MenuItemAddToBask";
+import { useAppSelector } from "../store/hooks/redux";
 
 interface Props {
   setList: (listName: TList) => void;
 }
 
 export default function MoluculeList({ setList }: Props) {
-  const List = ["Carbon", "Neon", "Xeon", "Iron", "Copper", "Lithium"];
+  const ListMolecule1= ["Carbon", "Neon", "Xeon", "Iron", "Copper", "Lithium"];
+  const ListMolecule = useAppSelector(state => state.moleculesSaladsReducer.molecules);
 
   return (
     <>
@@ -30,8 +32,8 @@ export default function MoluculeList({ setList }: Props) {
           <EggIcon fontSize="small" color="disabled" sx={{ mx: 1, mb: -0.5 }} />
         </Typography>
 
-        {List.map((name, index) => (
-          <MenuItem
+        {ListMolecule && ListMolecule.map((molecule, index) => (
+          <MenuItem key={ index }
             sx={(theme: Theme) => ({
               justifyContent: "space-around",
               border: "2px solid trasparent",
@@ -50,15 +52,15 @@ export default function MoluculeList({ setList }: Props) {
             })}
             onClick={() =>({})}
           >
-            <Typography variant="body2">{name}</Typography>
+            <Typography variant="body2">{molecule.title}</Typography>
 
             <Typography variant="body2">
-              {index} <AttachMoneyIcon fontSize="small" sx={{ mb: -0.5 }} />
+              {molecule.price} <AttachMoneyIcon fontSize="small" sx={{ mb: -0.5 }} />
             </Typography>
             <Typography
               variant="subtitle2"
               color="text.secondary"
-            >{`${index} шт`}</Typography>
+            >{`${molecule.qty} шт`}</Typography>
             <IconButton
               size="large"
               edge="start"

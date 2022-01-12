@@ -10,6 +10,7 @@ import AddIcon from "@mui/icons-material/Add";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import { TList } from "./AppMenu";
 import MenuItemAddToBask from "./MenuItemAddToBask";
+import { useAppSelector } from "../store/hooks/redux";
 
 interface Props {
   active: number,
@@ -18,8 +19,8 @@ interface Props {
 }
 
 export default function SaladList({ active, setActive, setList }: Props) {
-  const ListSalad = ["Цезарь", "Греческий", "Морской", "Туземский", "Летний"];
-
+  const ListSalad1 = ["Цезарь", "Греческий", "Морской", "Туземский", "Летний"];
+  const ListSalad = useAppSelector(state => state.moleculesSaladsReducer.salads);
   return (
     <>
         <MenuList>
@@ -32,8 +33,8 @@ export default function SaladList({ active, setActive, setList }: Props) {
             <MenuBookIcon fontSize="small" color="disabled" sx={{ mx: 1, mb:-0.5 }} />
           </Typography>
 
-          {ListSalad.map((name, index) => (
-            <MenuItem
+          {ListSalad && ListSalad.map((salad, index) => (
+            <MenuItem key={ index }
               sx={(theme: Theme) => ({
                 justifyContent: "space-around",
                 borderStyle: "solid",
@@ -68,9 +69,9 @@ export default function SaladList({ active, setActive, setList }: Props) {
               })}
               onClick={() => setActive(index)}
             >
-              <Typography variant="body2">{name}</Typography>
+              <Typography variant="body2">{salad.title}</Typography>
               <Typography variant="body2">
-                {index} <AttachMoneyIcon fontSize="small" sx={{mb:-0.5}} />
+                {salad.price} <AttachMoneyIcon fontSize="small" sx={{mb:-0.5}} />
               </Typography>
               <IconButton
               size="large"
