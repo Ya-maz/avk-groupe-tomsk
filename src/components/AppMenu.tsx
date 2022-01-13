@@ -8,7 +8,6 @@ import MoleculeList from "./MoleculeList";
 export type TList = "salads" | "molecules";
 
 export default function AppMenu() {
-  const [active, setActive] = React.useState<number>(0);
   const [list, setList] = React.useState<TList>("salads");
 
   return (
@@ -30,7 +29,7 @@ export default function AppMenu() {
         }}
       >
         {list === "salads" ? (
-          <SaladList active={active} setActive={setActive} setList={setList} />
+          <SaladList setList={setList} />
         ) : (
           <MoleculeList setList={setList}/>
         )}

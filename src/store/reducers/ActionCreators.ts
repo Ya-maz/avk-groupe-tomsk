@@ -1,24 +1,13 @@
-import { IMolecule, IResponseMS, ISalad } from "../models";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-
-const SERVER_API = "http://test-job.webatom.ru";
-// http://test-job.webatom.ru/salads
-
-const getFetch = async <Type>(url: string): Promise<Type> => {
-  const response = await fetch(`${SERVER_API}${url}`, );
-  return await response.json();
-};
-
-const getMoleculesList = async () => {
-  return (await getFetch<IResponseMS>("/molecules")).result;
-};
-
-const getSaladsList = async () => {
-  return (await getFetch<IResponseMS>("/salads")).result;
-};
+import {
+  getMolecule,
+  getMoleculesList,
+  getSalad,
+  getSaladsList,
+} from "../../service";
 
 export const fetchMolecules = createAsyncThunk(
-  "molecules/fetch",
+  "moleculeList/fetch",
   async (_, thunkAPI) => {
     try {
       return await getMoleculesList();
@@ -29,12 +18,34 @@ export const fetchMolecules = createAsyncThunk(
 );
 
 export const fetchSalads = createAsyncThunk(
-  "salad/fetch",
+  "saladList/fetch",
   async (_, thunkAPI) => {
     try {
-       return await getSaladsList();
+      return await getSaladsList();
     } catch (e) {
       return thunkAPI.rejectWithValue("Не удалось загрузить список салатов");
+    }
+  }
+);
+
+export const fetchOneMolecule = createAsyncThunk(
+  "molecule/fetch",
+  async (_id: string, thunkAPI) => {
+    try {
+      return await getMolecule(_id);
+    } catch (e) {
+      return thunkAPI.rejectWithValue("Не удалось загрузить данную молекулу");
+    }
+  }
+);
+
+export const fetchOneSalad = createAsyncThunk(
+  "salad/fetch",
+  async (_id: string, thunkAPI) => {
+    try {
+      return await getSalad(_id);
+    } catch (e) {
+      return thunkAPI.rejectWithValue("Не удалось загрузить данный салат");
     }
   }
 );

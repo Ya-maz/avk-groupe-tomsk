@@ -18,8 +18,9 @@ interface Props {
 
 export default function MoluculeList({ setList }: Props) {
   const ListMolecule1= ["Carbon", "Neon", "Xeon", "Iron", "Copper", "Lithium"];
+  
   const ListMolecule = useAppSelector(state => state.moleculesSaladsReducer.molecules);
-
+  console.log(ListMolecule)
   return (
     <>
       <MenuList>

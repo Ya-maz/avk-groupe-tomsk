@@ -4,11 +4,11 @@ import CloseIcon from "@mui/icons-material/Close";
 import IconButton from "@mui/material/IconButton";
 import { Theme } from "@mui/material";
 
-interface TProps {
+interface Props {
   children: string;
 }
 
-export default function MoleculePlate({ children }: TProps) {
+export default function MoleculePlate({ children }: Props) {
   return (
     <Nameplate>
       <Typography variant="subtitle1">{children}</Typography>

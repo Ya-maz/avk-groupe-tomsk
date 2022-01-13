@@ -13,7 +13,7 @@ export interface ISalad {
   title: string;
   price: number;
   discount_price: number;
-  composition: Array<string>[];
+  composition: Array<string>;
   __v: string;
 }
 
@@ -26,7 +26,12 @@ export interface IOrder {
   molecule: Array<IPartOrder> []
 }
 
-export interface IResponseMS {
+export interface IResponseMSList {
   success: boolean;
   result: IMolecule[] | ISalad[];
+}
+
+export interface IResponseMS {
+  success: boolean;
+  result: IMolecule | ISalad;
 }

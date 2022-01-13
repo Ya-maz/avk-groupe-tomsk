@@ -1,8 +1,10 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import moleculesSaladsReducer from "./reducers/MoleculesSaladsReducer";
+import appState from "./reducers/AppStateReducer";
 
 const rootReducer = combineReducers({
   moleculesSaladsReducer,
+  appState,
 });
 
 export const setupStore = () => {

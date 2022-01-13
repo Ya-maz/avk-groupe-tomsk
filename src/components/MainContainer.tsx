@@ -5,23 +5,28 @@ import salad from "../assets/6.png";
 import ImageBasic from "./CustumUI/ImageBasic";
 import { Stack, Theme } from "@mui/material";
 import MoleculePlate from "./MoleculePlate";
+import { useAppSelector } from "../store/hooks/redux";
 
 export default function MainContainer() {
   const List = ["Carbon", "Neon", "Xeon", "Iron", "Copper", "Lithium"];
+
+  const currentSalad = useAppSelector(
+    (state) => state.moleculesSaladsReducer.salad
+  );
   return (
     <Grid container sx={{ width: "100%" }} justifyContent={"space-around"}>
       <Grid item>
         <Box>
           <ImageBasic src={salad} />
         </Box>
-        <Typography variant="h3">cesar</Typography>
-        <Typography variant="h4">350.-</Typography>
+        <Typography variant="h3">{ currentSalad?.title}</Typography>
+        <Typography variant="h4">{ `${currentSalad?.price}.-`}</Typography>
       </Grid>
       <Grid item sx={{ width: "40%" }}>
         <Typography variant="h3">ингридиенты:</Typography>
         <Stack direction={"row"} flexWrap={"wrap"}>
-          {List.map((name, index) => (
-            <MoleculePlate key={index}>{name}</MoleculePlate>
+          {currentSalad && currentSalad.composition.map((name, index) => (
+            <MoleculePlate key={index}>{name.slice(-5)}</MoleculePlate>
           ))}
         </Stack>
         <Box
@@ -35,7 +40,7 @@ export default function MainContainer() {
         <Box sx={{ mt: 3 }}>
           <Typography variant="h5">Добавки:</Typography>
           <Stack direction={"row"} flexWrap={"wrap"}>
-            {List.slice(2).map((name,index) => (
+            {List.slice(2).map((name, index) => (
               <MoleculePlate key={index}>{name}</MoleculePlate>
             ))}
           </Stack>
