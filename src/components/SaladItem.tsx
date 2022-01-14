@@ -30,7 +30,8 @@ export default function SaladItem({
 
   useEffect(() => {
     if (currentSaladId) {
-      dispatch(setCurrentSalad(salad));
+      const newSalad = { ...salad, option:[]}
+      dispatch(setCurrentSalad(newSalad));
       dispatch(fetchOneSalad(salad._id));
     }
   }, [active]);

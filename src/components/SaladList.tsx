@@ -8,22 +8,34 @@ import WhatshotIcon from "@mui/icons-material/Whatshot";
 import AddIcon from "@mui/icons-material/Add";
 import { TList } from "./AppMenu";
 import MenuItemAddToBask from "./MenuItemAddToBask";
-import { useAppSelector } from "../store/hooks/redux";
+import { useAppDispatch, useAppSelector } from "../store/hooks/redux";
 
 import { useState } from "react";
 import SaladItem from "./SaladItem";
+import { AppStateReducer } from "../store/reducers/AppStateReducer";
 
 interface Props {
   setList: (listName: TList) => void;
 }
 
 export default function SaladList({ setList }: Props) {
+  const dispatch = useAppDispatch();
   const [currentSaladId, setCurrentSaladId] = useState<string>("");
   const ListSalad1 = ["Цезарь", "Греческий", "Морской", "Туземский", "Летний"];
-  const ListSalad = useAppSelector(
-    (state) => state.moleculesSaladsReducer.salads
+  const { salads, molecules } = useAppSelector(
+    (state) => state.moleculesSaladsReducer
   );
-  
+  const availableMolucules = useAppSelector(
+    (state) => state.appState.availableMolucules
+  );
+  const setavailableMolucules = AppStateReducer.actions.setavailableMolucules;
+
+  const setListHandle = () => {
+    setList("molecules");
+    if (availableMolucules) return null;
+    dispatch(setavailableMolucules(molecules));
+  };
+
   return (
     <>
       <MenuList>
@@ -40,9 +52,9 @@ export default function SaladList({ setList }: Props) {
           />
         </Typography>
 
-        {ListSalad &&
-          ListSalad.map((salad) => (
-            <SaladItem 
+        {salads &&
+          salads.map((salad) => (
+            <SaladItem
               key={salad._id}
               salad={salad}
               currentSaladId={currentSaladId}
@@ -65,7 +77,7 @@ export default function SaladList({ setList }: Props) {
             borderRadius: theme.shape.borderRadius,
             my: 1,
           })}
-          onClick={() => setList("molecules")}
+          onClick={setListHandle}
         >
           <AddIcon fontSize="small" />
           <Typography variant="body2" color="text.primary">
@@ -79,7 +91,7 @@ export default function SaladList({ setList }: Props) {
             borderRadius: theme.shape.borderRadius,
             my: 1,
           })}
-          onClick={() => setList("molecules")}
+          onClick={setListHandle}
         >
           <ScienceSharpIcon fontSize="small" />
           <Typography variant="body2" color="text.primary">

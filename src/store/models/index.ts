@@ -14,6 +14,7 @@ export interface ISalad {
   price: number;
   discount_price: number;
   composition: Array<string>;
+  option? : Array<string>
   __v: string;
 }
 
