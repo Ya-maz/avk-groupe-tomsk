@@ -7,7 +7,8 @@ interface MoleculesSaladsState {
   salads: ISalad[];
   molecule: null | IMolecule;
   salad: null | ISalad;
-  error: string;
+  errorSalads?: string;
+  errorMolecules?: string;
   isLoading: boolean
 }
 
@@ -16,8 +17,9 @@ const initialState: MoleculesSaladsState = {
   salads: [],
   molecule: null,
   salad: null,
-  error: "",
-  isLoading: false
+  errorSalads: "",
+  errorMolecules: "",
+  isLoading: false,
 };
 
 export const MoleculeSaladSlice = createSlice({
@@ -27,7 +29,7 @@ export const MoleculeSaladSlice = createSlice({
   extraReducers: {
     // molecules
     [fetchMolecules.fulfilled.type]: (state, action: PayloadAction<IMolecule[]>) => {
-      state.error = "";
+      state.errorMolecules = "";
       state.molecules = action.payload;
     },
     [fetchMolecules.pending.type]: (state) => {
@@ -35,13 +37,13 @@ export const MoleculeSaladSlice = createSlice({
     },
     [fetchMolecules.rejected.type]: (state, action: PayloadAction<string>) => {
       state.isLoading = false;
-      state.error = action.payload;
+      state.errorMolecules = action.payload;
     },
 
     // salads
     [fetchSalads.fulfilled.type]: (state, action: PayloadAction<ISalad[]>) => {
       state.isLoading = false;
-      state.error = "";
+      state.errorSalads = "";
       state.salads = action.payload;
     },
     [fetchSalads.pending.type]: (state) => {
@@ -49,12 +51,12 @@ export const MoleculeSaladSlice = createSlice({
     },
     [fetchSalads.rejected.type]: (state, action: PayloadAction<string>) => {
       state.isLoading = false;
-      state.error = action.payload;
+      state.errorSalads = action.payload;
     },
 
     // molecule
     [fetchOneMolecule.fulfilled.type]: (state, action: PayloadAction<IMolecule>) => {
-      state.error = "";
+      state.errorMolecules = "";
       state.molecule = action.payload;
     },
     [fetchOneMolecule.pending.type]: (state) => {
@@ -62,13 +64,13 @@ export const MoleculeSaladSlice = createSlice({
     },
     [fetchOneMolecule.rejected.type]: (state, action: PayloadAction<string>) => {
       state.isLoading = false;
-      state.error = action.payload;
+      state.errorMolecules = action.payload;
     },
 
     // salad
     [fetchOneSalad.fulfilled.type]: (state, action: PayloadAction<ISalad>) => {
       state.isLoading = false;
-      state.error = "";
+      state.errorSalads = "";
       state.salad = action.payload;
     },
     [fetchOneSalad.pending.type]: (state) => {
@@ -76,7 +78,7 @@ export const MoleculeSaladSlice = createSlice({
     },
     [fetchOneSalad.rejected.type]: (state, action: PayloadAction<string>) => {
       state.isLoading = false;
-      state.error = action.payload;
+      state.errorSalads = action.payload;
     },
 
   },

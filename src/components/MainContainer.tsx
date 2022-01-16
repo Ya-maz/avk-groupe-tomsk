@@ -6,6 +6,7 @@ import ImageBasic from "./CustumUI/ImageBasic";
 import { Stack, Theme } from "@mui/material";
 import MoleculePlate from "./MoleculePlate";
 import { useAppSelector } from "../store/hooks/redux";
+import ModalWindow from "./ModalWindow";
 
 type flag = "mainIngrediets" | "addedIngredients "
 
@@ -14,7 +15,9 @@ export default function MainContainer() {
 
   const { molecules } = useAppSelector((state) => state.moleculesSaladsReducer);
   const currentSalad = useAppSelector((state) => state.appState.currentSalad);
+  const { errorSalads, errorMolecules } = useAppSelector((state) => state.moleculesSaladsReducer);
 
+  const error = errorMolecules ? errorMolecules : errorSalads ? errorSalads : false;
   const conditionForRenderMoleculePlateMainIngrediets = () => {
     if (
       (!currentSalad?.composition && !molecules) ||
@@ -25,13 +28,6 @@ export default function MainContainer() {
     if (currentSalad.composition) {
       return currentSalad.composition.map((molecule, key) => 
         <MoleculePlate key={key} flag={"mainIngrediets"} moleculeId={molecule}></MoleculePlate>
-
-        // if (!spice) return undefined;
-        // for (let molecule of molecules) {
-        //   if (molecule._id === spice) {
-        //     return molecule.title;
-        //   }
-        // }
       );
     }
   };
@@ -49,6 +45,8 @@ export default function MainContainer() {
   }
 
   return (
+    <>
+      {error && <ModalWindow>{ error }</ModalWindow>}
     <Grid container sx={{ width: "100%" }} justifyContent={"space-around"}>
       <Grid item>
         <Box>
@@ -79,5 +77,6 @@ export default function MainContainer() {
         </Box>
       </Grid>
     </Grid>
+    </>
   );
 }

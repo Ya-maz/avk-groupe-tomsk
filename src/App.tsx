@@ -1,10 +1,11 @@
-import { Stack } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import React from "react";
 import Header from "./components/Header";
 import AppMenu from "./components/AppMenu";
 import MainContainer from "./components/MainContainer";
-import { useAppDispatch, useAppSelector } from "./store/hooks/redux";
+import { useAppDispatch } from "./store/hooks/redux";
 import { fetchMolecules, fetchSalads } from "./store/reducers/ActionCreators";
+import ModalWindow from "./components/ModalWindow";
 
 function App() {
   const dispatch = useAppDispatch()
@@ -15,7 +16,7 @@ function App() {
 
   });
   return (
-    <div>
+    <Box>
       <Header />
       <Stack
         direction="row"
@@ -26,7 +27,7 @@ function App() {
         <MainContainer />
         <AppMenu />
       </Stack>
-    </div>
+    </Box>
   );
 }
 
