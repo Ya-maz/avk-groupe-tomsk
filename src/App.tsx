@@ -5,7 +5,6 @@ import AppMenu from "./components/AppMenu";
 import MainContainer from "./components/MainContainer";
 import { useAppDispatch } from "./store/hooks/redux";
 import { fetchMolecules, fetchSalads } from "./store/reducers/ActionCreators";
-import ModalWindow from "./components/ModalWindow";
 
 function App() {
   const dispatch = useAppDispatch()

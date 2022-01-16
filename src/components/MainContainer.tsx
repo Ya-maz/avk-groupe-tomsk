@@ -8,16 +8,15 @@ import MoleculePlate from "./MoleculePlate";
 import { useAppSelector } from "../store/hooks/redux";
 import ModalWindow from "./ModalWindow";
 
-type flag = "mainIngrediets" | "addedIngredients "
-
 export default function MainContainer() {
   const List = ["Carbon", "Neon", "Xeon", "Iron", "Copper", "Lithium"];
 
   const { molecules } = useAppSelector((state) => state.moleculesSaladsReducer);
   const currentSalad = useAppSelector((state) => state.appState.currentSalad);
-  const { errorSalads, errorMolecules } = useAppSelector((state) => state.moleculesSaladsReducer);
+  const { errorSalads, errorMolecules, errorOrder, orderResult } = useAppSelector((state) => state.moleculesSaladsReducer);
 
-  const error = errorMolecules ? errorMolecules : errorSalads ? errorSalads : false;
+  const error = errorMolecules ? errorMolecules : errorSalads ? errorSalads : errorOrder ? errorOrder : false;
+
   const conditionForRenderMoleculePlateMainIngrediets = () => {
     if (
       (!currentSalad?.composition && !molecules) ||
@@ -46,7 +45,8 @@ export default function MainContainer() {
 
   return (
     <>
-      {error && <ModalWindow>{ error }</ModalWindow>}
+      {error && <ModalWindow>{error}</ModalWindow>}
+      {orderResult && <ModalWindow>{ orderResult }</ModalWindow>}
     <Grid container sx={{ width: "100%" }} justifyContent={"space-around"}>
       <Grid item>
         <Box>

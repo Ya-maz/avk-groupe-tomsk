@@ -18,8 +18,8 @@ export interface ISalad {
   __v: string;
 }
 
-interface IPartOrder {
-  _id: number | string;
+export interface IPartOrder {
+  id: string;
   qty: number;
 }
 
@@ -35,4 +35,9 @@ export interface IResponseMSList {
 export interface IResponseMS {
   success: boolean;
   result: IMolecule | ISalad;
+}
+
+export interface IResponseOrder {
+  success: boolean;
+  result: string;
 }

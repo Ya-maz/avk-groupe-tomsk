@@ -19,7 +19,7 @@ export default function SaladItem({
   setCurrentSaladId,
 }: Props) {
   const [active, setActive] = useState<boolean>(false);
-  const { setCurrentSalad } = AppStateReducer.actions;
+  const { setCurrentSalad, addToOrder } = AppStateReducer.actions;
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -36,6 +36,10 @@ export default function SaladItem({
     }
   }, [active]);
 
+
+  const plusHandle = () => {
+    dispatch(addToOrder(salad.composition))
+  }
   return (
     <MenuItem
       key={salad._id}
@@ -75,6 +79,7 @@ export default function SaladItem({
         color="warning"
         aria-label="menu"
         sx={{ p: 1 }}
+        onClick={plusHandle}
       >
         <AddIcon fontSize="small" />
       </IconButton>

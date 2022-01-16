@@ -4,7 +4,9 @@ import {
   getMoleculesList,
   getSalad,
   getSaladsList,
+  postFetch,
 } from "../../service";
+import { IPartOrder } from "../models";
 
 export const fetchMolecules = createAsyncThunk(
   "moleculeList/fetch",
@@ -46,6 +48,17 @@ export const fetchOneSalad = createAsyncThunk(
       return await getSalad(_id);
     } catch (e) {
       return thunkAPI.rejectWithValue("Не удалось загрузить данный салат");
+    }
+  }
+);
+
+export const fetchOrder = createAsyncThunk(
+  "order/fetch-post",
+  async (molecules: IPartOrder[], thunkAPI) => {
+    try {
+      return await postFetch(molecules);
+    } catch (e) {
+      return thunkAPI.rejectWithValue("Не удалось обработать заказ");
     }
   }
 );

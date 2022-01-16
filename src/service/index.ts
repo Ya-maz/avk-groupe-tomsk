@@ -1,4 +1,4 @@
-import { IResponseMS, IResponseMSList } from "../store/models";
+import { IPartOrder, IResponseMS, IResponseMSList, IResponseOrder } from "../store/models";
 
 const SERVER_API = "http://test-job.webatom.ru";
 
@@ -21,4 +21,15 @@ export const getSalad = async (_id:string) => {
 
 export const getMolecule = async (_id:string) => {
   return (await getFetch<IResponseMS>(`/molecule/${_id}`)).result;
+};
+
+export const postFetch = async (molecules: IPartOrder[]): Promise<IResponseOrder> => {
+  const response = await fetch(`${SERVER_API}/order`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+    },
+    body: JSON.stringify(molecules),
+  })
+  return await response.json()
 };

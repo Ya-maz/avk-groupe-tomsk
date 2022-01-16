@@ -7,8 +7,16 @@ import {
   Box,
 } from "@mui/material";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
+import { useAppDispatch, useAppSelector } from "../store/hooks/redux";
+import { fetchOrder } from "./../store/reducers/ActionCreators";
 
 export default function Header() {
+  const dispatch = useAppDispatch();
+  const molecules = useAppSelector(state=> state.appState.molecules)
+
+  const postOrderHandler = () => {
+    dispatch(fetchOrder(molecules))
+  }
   return (
     <>
       <AppBar
@@ -31,7 +39,8 @@ export default function Header() {
               LOGOhere
             </Typography>
 
-            <Button variant="contained" color="warning" sx={{ px: 3 }}>
+          <Button variant="contained" color="warning" sx={{ px: 3 }}
+          onClick={postOrderHandler}>
               <Typography variant="subtitle1" sx={{ textTransform: "none" }}>
                 Сделать заказ
               </Typography>

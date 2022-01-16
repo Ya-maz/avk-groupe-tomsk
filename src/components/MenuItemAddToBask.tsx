@@ -3,8 +3,10 @@ import MenuItem from "@mui/material/MenuItem";
 import { Theme } from "@mui/material/styles";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import StyledBadge from "./CustumUI/StyledBadge";
+import { useAppSelector } from "../store/hooks/redux";
 
 export default function MenuItemAddToBask() {
+ const molecules = useAppSelector(state=> state.appState.molecules)
   return (
     <MenuItem
       sx={(theme: Theme) => ({
@@ -20,7 +22,7 @@ export default function MenuItemAddToBask() {
       <Typography variant="body2" color="text.primary">
         Добавить в корзину
       </Typography>
-      <StyledBadge color="warning" badgeContent={5} />
+      <StyledBadge color="warning" badgeContent={molecules.length} />
     </MenuItem>
   );
 }
