@@ -18,7 +18,7 @@ export const AppStateReducer = createSlice({
   name: "appState",
   initialState,
   reducers: {
-    setCurrentSalad(state, action: PayloadAction<ISalad>) {
+    setCurrentSalad(state, action: PayloadAction<ISalad | null>) {
       state.currentSalad = action.payload;
     },
     setavailableMolucules(state, action: PayloadAction<IMolecule[]>) {

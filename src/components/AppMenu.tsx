@@ -6,9 +6,11 @@ import SaladList from "./SaladList";
 import MoleculeList from "./MoleculeList";
 
 export type TList = "salads" | "molecules";
+export type TypeMoleculeList = "add" | "new";
 
 export default function AppMenu() {
   const [list, setList] = React.useState<TList>("salads");
+  const [type, setType] = React.useState<TypeMoleculeList>("add");
 
   return (
     <>
@@ -29,9 +31,9 @@ export default function AppMenu() {
         }}
       >
         {list === "salads" ? (
-          <SaladList setList={setList} />
+          <SaladList setList={setList} setType={ setType }/>
         ) : (
-          <MoleculeList setList={setList}/>
+            <MoleculeList type={type} setList={setList}/>
         )}
       </Stack>
     </>

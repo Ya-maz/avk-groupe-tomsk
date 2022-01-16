@@ -6,7 +6,7 @@ import MenuBookIcon from "@mui/icons-material/MenuBook";
 import ScienceSharpIcon from "@mui/icons-material/ScienceSharp";
 import WhatshotIcon from "@mui/icons-material/Whatshot";
 import AddIcon from "@mui/icons-material/Add";
-import { TList } from "./AppMenu";
+import { TList, TypeMoleculeList } from "./AppMenu";
 import MenuItemAddToBask from "./MenuItemAddToBask";
 import { useAppDispatch, useAppSelector } from "../store/hooks/redux";
 
@@ -16,9 +16,10 @@ import { AppStateReducer } from "../store/reducers/AppStateReducer";
 
 interface Props {
   setList: (listName: TList) => void;
+  setType: (type: TypeMoleculeList) => void;
 }
 
-export default function SaladList({ setList }: Props) {
+export default function SaladList({ setList, setType }: Props) {
   const dispatch = useAppDispatch();
   const [currentSaladId, setCurrentSaladId] = useState<string>("");
   const ListSalad1 = ["Цезарь", "Греческий", "Морской", "Туземский", "Летний"];
@@ -29,12 +30,6 @@ export default function SaladList({ setList }: Props) {
     (state) => state.appState.availableMolucules
   );
   const setavailableMolucules = AppStateReducer.actions.setavailableMolucules;
-
-  const setListHandle = () => {
-    setList("molecules");
-    if (availableMolucules) return null;
-    dispatch(setavailableMolucules(molecules));
-  };
 
   return (
     <>
@@ -77,7 +72,14 @@ export default function SaladList({ setList }: Props) {
             borderRadius: theme.shape.borderRadius,
             my: 1,
           })}
-          onClick={setListHandle}
+          onClick={
+            () => {
+              setList("molecules");
+              if (availableMolucules) return null;
+              dispatch(setavailableMolucules(molecules));
+              setType("add")
+            }
+          }
         >
           <AddIcon fontSize="small" />
           <Typography variant="body2" color="text.primary">
@@ -91,7 +93,14 @@ export default function SaladList({ setList }: Props) {
             borderRadius: theme.shape.borderRadius,
             my: 1,
           })}
-          onClick={setListHandle}
+          onClick={
+            () => {
+              setList("molecules");
+              if (availableMolucules) return null;
+              dispatch(setavailableMolucules(molecules));
+              setType("new")
+            }
+          }
         >
           <ScienceSharpIcon fontSize="small" />
           <Typography variant="body2" color="text.primary">

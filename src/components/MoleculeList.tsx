@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import { Theme } from "@mui/material/styles";
 import AddIcon from "@mui/icons-material/Add";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import { TList } from "./AppMenu";
+import { TList, TypeMoleculeList } from "./AppMenu";
 import EggIcon from "@mui/icons-material/Egg";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -13,19 +13,22 @@ import MenuItemAddToBask from "./MenuItemAddToBask";
 import { useAppDispatch, useAppSelector } from "../store/hooks/redux";
 import { AppStateReducer } from "../store/reducers/AppStateReducer";
 import { IMolecule } from "../store/models";
+import { useEffect } from "react";
+import { isTypeElement } from "typescript";
 
 interface Props {
   setList: (listName: TList) => void;
+  type: TypeMoleculeList;
 }
 
-export default function MoluculeList({ setList }: Props) {
+export default function MoluculeList({ setList, type }: Props) {
   const ListMolecule1 = ["Carbon", "Neon", "Xeon", "Iron", "Copper", "Lithium"];
 
   const dispatch = useAppDispatch();
   const molecules = useAppSelector(
     (state) => state.appState.availableMolucules
   );
-  const { decrement, addMoleculeToSalad } = AppStateReducer.actions;
+  const { decrement, addMoleculeToSalad, setCurrentSalad } = AppStateReducer.actions;
 
   const plusHandle = (molecule: IMolecule) => {
     if (molecule.qty) {
@@ -33,6 +36,7 @@ export default function MoluculeList({ setList }: Props) {
       dispatch(addMoleculeToSalad(molecule._id))
     }
   };
+
   return (
     <>
       <MenuList>
