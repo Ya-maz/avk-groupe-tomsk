@@ -34,7 +34,11 @@ export const AppStateReducer = createSlice({
     },
     addMoleculeToSalad(state, action: PayloadAction<string>) {
       state.currentSalad?.option?.push(action.payload!)
-      console.log(state.currentSalad)
+    },
+    deleteMoleculeFromSalad(state, action: PayloadAction<string>) {
+      state.currentSalad!.option = state.currentSalad?.option?.filter(molecule => {
+        return (molecule !== action.payload)
+      })
     }
   },
 });

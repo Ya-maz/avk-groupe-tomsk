@@ -7,13 +7,15 @@ import { Stack, Theme } from "@mui/material";
 import MoleculePlate from "./MoleculePlate";
 import { useAppSelector } from "../store/hooks/redux";
 
+type flag = "mainIngrediets" | "addedIngredients "
+
 export default function MainContainer() {
   const List = ["Carbon", "Neon", "Xeon", "Iron", "Copper", "Lithium"];
 
   const { molecules } = useAppSelector((state) => state.moleculesSaladsReducer);
   const currentSalad = useAppSelector((state) => state.appState.currentSalad);
 
-  const moleculeToString = () => {
+  const conditionForRenderMoleculePlateMainIngrediets = () => {
     if (
       (!currentSalad?.composition && !molecules) ||
       !currentSalad ||
@@ -21,38 +23,30 @@ export default function MainContainer() {
     )
       return undefined;
     if (currentSalad.composition) {
-      return currentSalad.composition.map((spice) => {
-        if (!spice) return undefined;
-        for (let molecule of molecules) {
-          if (molecule._id === spice) {
-            return molecule.title;
-          }
-        }
-      });
+      return currentSalad.composition.map((molecule, key) => 
+        <MoleculePlate key={key} flag={"mainIngrediets"} moleculeId={molecule}></MoleculePlate>
+
+        // if (!spice) return undefined;
+        // for (let molecule of molecules) {
+        //   if (molecule._id === spice) {
+        //     return molecule.title;
+        //   }
+        // }
+      );
     }
   };
 
-  const isOkey = moleculeToString();
-  const moleculeToStringOption = () => {
+  const conditionForRenderMoleculePlateAddedIngrediets = () => {
     if (!currentSalad) return undefined;
     if (currentSalad?.option === undefined || currentSalad.option.length == 0) {
       return undefined;
     }
     if (currentSalad.option) {
-      const spices = currentSalad.option.map((spice) => {
-        for (let molecule of molecules) {
-          if (molecule._id === spice) {
-            return molecule.title;
-          }
-        }
-      });
-      return spices.map((name, index) => (
-        <MoleculePlate key={index}>{name!}</MoleculePlate>
-      ));
-    }
-  };
-
-  console.log(moleculeToStringOption());
+      return currentSalad.option.map((molecule, key) => 
+        <MoleculePlate key={key} flag={"addedIngredients"} moleculeId={molecule}></MoleculePlate>
+      )
+    };
+  }
 
   return (
     <Grid container sx={{ width: "100%" }} justifyContent={"space-around"}>
@@ -67,10 +61,7 @@ export default function MainContainer() {
         <Typography variant="h3">ингридиенты:</Typography>
 
         <Stack direction={"row"} flexWrap={"wrap"}>
-          {isOkey &&
-            moleculeToString()!.map((name, index) => (
-              <MoleculePlate key={index}>{name!}</MoleculePlate>
-            ))}
+          {conditionForRenderMoleculePlateMainIngrediets()}
         </Stack>
         <Box
           alignSelf={"center"}
@@ -83,10 +74,7 @@ export default function MainContainer() {
         <Box sx={{ mt: 3 }}>
           <Typography variant="h5">Добавки:</Typography>
           <Stack direction={"row"} flexWrap={"wrap"}>
-            {/* {!isEmpty() && moleculeToStringOption!.map((name: string, index: number) => (
-              <MoleculePlate key={index}>{name!}</MoleculePlate>
-            ))} */}
-            {moleculeToStringOption()}
+            {conditionForRenderMoleculePlateAddedIngrediets()}
           </Stack>
         </Box>
       </Grid>
